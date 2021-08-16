@@ -1,10 +1,6 @@
 ﻿using SagamApi4.Models;
 using SagamApi4.Services;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace SagamApi4.Controllers

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SagamApi4.0", "SagamApi4.0\SagamApi4.0.csproj", "{8429E159-B8FE-4D17-8EB1-7917E7B5E81C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SagamApi4", "SagamApi4.0\SagamApi4.csproj", "{8429E159-B8FE-4D17-8EB1-7917E7B5E81C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "..\..\SagamUltimate\Data\Data.csproj", "{898E7DC6-FB67-4832-886F-53B8859F70B0}"
 EndProject

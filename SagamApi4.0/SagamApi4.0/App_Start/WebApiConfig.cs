@@ -1,6 +1,7 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 
-namespace SagamApi4._0.App_Start
+namespace SagamApi4.App_Start
 {
     public class WebApiConfig
     {
