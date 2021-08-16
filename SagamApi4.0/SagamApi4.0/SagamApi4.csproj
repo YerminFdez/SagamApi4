@@ -138,6 +138,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CustomerBillsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -145,10 +146,13 @@
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CustomerBillModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ConnectionHelper.cs" />
     <Compile Include="Services\CustomerBillService.cs" />
     <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\IBaseService.cs" />
+    <Compile Include="Services\ProductService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\SagamUltimate\Data\Data.csproj">

@@ -10,7 +10,7 @@ namespace SagamApi4
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
+            WebApiConfig.Register(GlobalConfiguration.Configuration);            
         }
 
         protected void Session_Start(object sender, EventArgs e)
