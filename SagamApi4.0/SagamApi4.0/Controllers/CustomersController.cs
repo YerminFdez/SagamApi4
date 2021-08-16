@@ -1,34 +1,25 @@
-﻿using SagamApi4._0.Models;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Collections.Generic;
 using System.Web.Http;
-using Domain.Service.Customer;
-using Domain.Service.Customer.Models;
+using SagamApi4.Models;
+using SagamApi4.Services;
 
-namespace SagamApi4._0.Controllers
-{    
+namespace SagamApi4.Controllers
+{
     public class CustomersController : ApiController
     {
         // GET api/values
-        public List<Customer> Get()
+        public List<CustomerModel> Get()
         {
-            List<Customer> customers = new List<Customer>();
-            var custApi = new CustomerApi();
-            customers = custApi.GetCustomerByNameContain("");
-
+            var custSrv = new CustomerService(ConnectionHelper.GetContext());
+            List<CustomerModel> customers = custSrv.GetCustomers();
             return customers;
-        }      
-        
+        }
+
         // GET api/values/5
-        public Customer Get(int id)
+        public CustomerModel Get(int id)
         {
-            var custApi = new CustomerApi();
-            return custApi.GetCustomer(id);
+            var custSrv = new CustomerService(ConnectionHelper.GetContext());
+            return custSrv.GetCustomer(id);
         }
 
         // POST api/values
