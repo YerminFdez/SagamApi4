@@ -21,12 +21,33 @@ namespace SagamApi4.Services
             parameters = new List<System.Data.SqlClient.SqlParameter>();            
             return GetData(ExecuteReader2(command), ProductModel.Create).ToList();
         }
-        public List<ProductModel> GetProducts(int tarifaId)
+        public List<ProductModel> GetProducts(int id,int tarifaId)
+        {
+            const string command = @"select codart,desart,prelta from f_art a
+                                     inner join f_lta l on l.artlta=a.codart where codart=@id and tarlta=@tarifaId";
+            parameters = new List<System.Data.SqlClient.SqlParameter>();
+            parameters.Add(new System.Data.SqlClient.SqlParameter("@id", id));
+            parameters.Add(new System.Data.SqlClient.SqlParameter("@tarifaId", tarifaId));
+            return GetData(ExecuteReader2(command), ProductModel.Create).ToList();
+        }
+        public List<ProductModel> GetProductByBarcode(string barcode,int tarifaId)
+        {
+            const string command = @"select codart,desart,prelta from f_ean e 
+                                        inner join f_art a on a.codart=e.artean
+                                        inner join f_lta l on l.artlta=a.codart where eanean=@barcode and tarlta=@tarifaId";
+            parameters = new List<System.Data.SqlClient.SqlParameter>();
+            parameters.Add(new System.Data.SqlClient.SqlParameter("@barcode", barcode));
+            parameters.Add(new System.Data.SqlClient.SqlParameter("@tarifaId", tarifaId));
+            return GetData(ExecuteReader2(command), ProductModel.Create).ToList();
+        }
+        public List<ProductModel> GetProductsByDescription(string text,int tarifaId)
         {
             const string command = @"select top 200 codart,desart,prelta from f_art a 
-                                    left join f_lta l on l.artlta=a.codart where tarlta=@tarifaId";
+                                    left join f_lta l on l.artlta=a.codart where a.desart like @text and tarlta=@tarifaId";
             parameters = new List<System.Data.SqlClient.SqlParameter>();
             parameters.Add(new System.Data.SqlClient.SqlParameter("@tarifaId", tarifaId));
+            var castTxt = "%" + text.Replace(" ", "%").Trim()+"%";
+            parameters.Add(new System.Data.SqlClient.SqlParameter("@text", castTxt));
             return GetData(ExecuteReader2(command), ProductModel.Create).ToList();
         }
         public ProductModel GetProduct(int productId,int tarifaId)
@@ -38,7 +59,6 @@ namespace SagamApi4.Services
             parameters.Add(new System.Data.SqlClient.SqlParameter("@tarifaId", tarifaId));
             return GetData(ExecuteReader2(command), ProductModel.Create).FirstOrDefault();
         }
-
 
     }
 }

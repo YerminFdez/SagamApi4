@@ -1,4 +1,5 @@
-﻿using SagamApi4.Models;
+﻿using Data;
+using SagamApi4.Models;
 using SagamApi4.Services;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -8,10 +9,10 @@ namespace SagamApi4.Controllers
     public class CustomerBillsController : ApiController
     {
 
-        readonly CustomerBillService custBillSrv;
+        readonly DbContext context;
         public CustomerBillsController()
         {
-            custBillSrv = new CustomerBillService(ConnectionHelper.GetContext());
+            context = ConnectionHelper.GetContext();
         }
 
         // GET api/<controller>
@@ -23,6 +24,7 @@ namespace SagamApi4.Controllers
         // GET api/<controller>/5
         public List<CustomerBillModel> Get(int id)
         {
+            var custBillSrv = new CustomerBillService(context);
             var bills = custBillSrv.GetPendienteBills(id);
             return bills;
         }
@@ -40,6 +42,13 @@ namespace SagamApi4.Controllers
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            if (disposing)
+                context.Dispose();
         }
     }
 }
