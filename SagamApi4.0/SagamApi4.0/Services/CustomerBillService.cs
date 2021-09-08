@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SagamApi4.Services
 {
-    public class CustomerBillService: Repository<CustomerBillModel>
+    public class CustomerBillService: BaseService
     {
         public CustomerBillService(DbContext context):base(context){}
 
@@ -17,7 +17,7 @@ namespace SagamApi4.Services
                                     group by codfac,clifac,fecfac,((brtfac-dtofac)+iimfac)";
             parameters = new List<System.Data.SqlClient.SqlParameter>();
             parameters.Add(new System.Data.SqlClient.SqlParameter("@customerId", customerId));
-            return GetData(ExecuteReader2(command),CustomerBillModel.Create).ToList();
+            return GetData(ExecuteReader(command),CustomerBillModel.Create).ToList();
         }
     }
 }

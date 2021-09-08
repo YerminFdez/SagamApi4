@@ -9,7 +9,7 @@ namespace SagamApi4.Models
         public string FiscalName { get; set; }
         public string Telephone { get; set; }
         public string Contact { get; set; }
-
+        public int PriceRateId { get; set; }
         public CustomerModel()
         {
             FiscalName = ComercialName = Telephone = Contact = string.Empty;
@@ -23,6 +23,7 @@ namespace SagamApi4.Models
             cust.FiscalName = Convert.ToString(record["NOFCLI"]);
             cust.Telephone = Convert.ToString(record["TELCLI"]);
             cust.Contact = Convert.ToString(record["CONCLI"]);
+            cust.PriceRateId= Convert.ToInt32(record["TARCLI"]);
             return cust;
         }
     }

@@ -7,17 +7,15 @@ using System.Web;
 
 namespace SagamApi4.Services
 {
-    public class AgentService : Repository<Models.AgentModel>
+    public class AgentService : BaseService
     {
-        public AgentService(DbContext context):base(context)
-        {}
-
-        public Models.AgentModel GetAgent(int id)
+        public AgentService(DbContext context):base(context){}
+        public AgentModel GetAgent(int id)
         {
             const string command = "select * from f_age where codage=@id";
             parameters = new List<System.Data.SqlClient.SqlParameter>();
             parameters.Add(new System.Data.SqlClient.SqlParameter("@id", id));
-            return GetData(ExecuteReader2(command), AgentModel.Create).FirstOrDefault();
+            return GetData(ExecuteReader(command), AgentModel.Create).FirstOrDefault();
         }
     }
 }

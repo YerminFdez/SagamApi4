@@ -16,8 +16,12 @@ namespace SagamApi4.Controllers
         {            
             try
             {
-                AgentService agentSrv = new AgentService(ConnectionHelper.GetContext());
-                return agentSrv.GetAgent(id);
+                using(var ageSrv=new AgentService(ConnectionHelper.GetContext()))
+                {
+                    var agent = ageSrv.GetAgent(id); 
+                    return agent;
+                }
+                
             }
             catch (Exception ex)
             {

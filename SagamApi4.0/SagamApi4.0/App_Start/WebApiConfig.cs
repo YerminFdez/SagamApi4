@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Routing;
+﻿using System.Web.Http;
 
 namespace SagamApi4.App_Start
 {
@@ -10,6 +7,7 @@ namespace SagamApi4.App_Start
         public static void Register(HttpConfiguration config)
         {
 
+            config.Routes.Clear();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

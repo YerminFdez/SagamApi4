@@ -7,7 +7,7 @@ using SagamApi4.Models;
 
 namespace SagamApi4.Services
 {
-    public class CustomerService : Repository<CustomerModel>
+    public class CustomerService : BaseService
     {
         public CustomerService(DbContext context):base(context)
         {
@@ -18,7 +18,7 @@ namespace SagamApi4.Services
         {
             const string command = "select * from f_cli";
             parameters = new List<System.Data.SqlClient.SqlParameter>();
-            return GetData(ExecuteReader2(command), CustomerModel.Create).ToList();
+            return GetData(ExecuteReader(command), CustomerModel.Create).ToList();
         }
         [HttpGet()]        
         public CustomerModel GetCustomer(int id)
@@ -26,7 +26,7 @@ namespace SagamApi4.Services
             const string command = "select * from f_cli where codcli=@id";
             parameters = new List<System.Data.SqlClient.SqlParameter>();
             parameters.Add(new System.Data.SqlClient.SqlParameter("@id", id));
-            return GetData(ExecuteReader2(command), CustomerModel.Create).FirstOrDefault();
+            return GetData(ExecuteReader(command), CustomerModel.Create).FirstOrDefault();
         }
     }
 }

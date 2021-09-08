@@ -1,56 +1,50 @@
-﻿using System.Collections.Generic;
-using System.Web.Http;
-using Data;
-using SagamApi4.Models;
+﻿using SagamApi4.Models;
 using SagamApi4.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 
 namespace SagamApi4.Controllers
 {
     public class CustomersController : ApiController
     {
-        readonly DbContext context;
-        public CustomersController()
+        // GET api/<controller>
+        public IEnumerable<CustomerModel> Get()
         {
-            context = ConnectionHelper.GetContext();
+
+            using (var custSrv = new CustomerService(ConnectionHelper.GetContext()))
+            {
+                var result = custSrv.GetCustomers();
+                return result;
+            }
         }
 
-        // GET api/values
-        public List<CustomerModel> Get()
-        {
-            var custSrv = new CustomerService(context);
-            List<CustomerModel> customers = custSrv.GetCustomers();
-            context.Dispose();
-            return customers;
-        }
-
-        // GET api/values/5
+        // GET api/<controller>/5
         public CustomerModel Get(int id)
         {
-            var custSrv = new CustomerService(context);
-            return custSrv.GetCustomer(id);
+            using (var custSrv = new CustomerService(ConnectionHelper.GetContext()))
+            {
+                var result = custSrv.GetCustomer(id);
+                return result;
+            }
         }
 
-        // POST api/values
-        public void Post([FromBody]string value)
+        // POST api/<controller>
+        public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        // PUT api/<controller>/5
+        public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE api/<controller>/5
         public void Delete(int id)
         {
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-
-            if (disposing)
-                context.Dispose();
         }
     }
 }
