@@ -20,32 +20,35 @@ namespace SagamApi4.Controllers
         [ActionName("FindProduct")]
         public List<ProductModel> FindProduct(string q)
         {
-            try
+            using (context)
             {
-                string[] cmd = { "c", "b", "d" };
-                List<ProductModel> data = new List<ProductModel>();
-                string p1, p2;                
-                int indxP1 = q.IndexOf(":");
-                int indxP2 = q.IndexOf("?");
-                p1 = q.Substring(indxP1 + 1, indxP2 - indxP1 - 1);
-                p2 = q.Substring(indxP2 + 1);
+                try
+                {
+                    string[] cmd = { "c", "b", "d" };
+                    List<ProductModel> data = new List<ProductModel>();
+                    string p1, p2;
+                    int indxP1 = q.IndexOf(":");
+                    int indxP2 = q.IndexOf("?");
+                    p1 = q.Substring(indxP1 + 1, indxP2 - indxP1 - 1);
+                    p2 = q.Substring(indxP2 + 1);
 
-                var prodSrv = new ProductService(context);
+                    var prodSrv = new ProductService(context);
 
-                if (q.StartsWith(cmd[0]))             
-                    data = prodSrv.GetProducts(Convert.ToInt32(p1), Convert.ToInt32(p2));
-                else if (q.StartsWith(cmd[1]))
-                    data = prodSrv.GetProductByBarcode(p1,Convert.ToInt32(p2));
-                else if (q.StartsWith(cmd[2]))
-                    data = prodSrv.GetProductsByDescription(p1,Convert.ToInt32(p2));
+                    if (q.StartsWith(cmd[0]))//c = codigo interno
+                        data = prodSrv.GetProducts(Convert.ToInt32(p1), Convert.ToInt32(p2));
+                    else if (q.StartsWith(cmd[1]))//b = codigo de barras 
+                        data = prodSrv.GetProductByBarcode(p1, Convert.ToInt32(p2));
+                    else if (q.StartsWith(cmd[2]))//d = descripcion del producto
+                        data = prodSrv.GetProductsByDescription(p1, Convert.ToInt32(p2));
 
-                return data;
+                    return data;
+                }
+                catch
+                {
+                    int code = System.Runtime.InteropServices.Marshal.GetExceptionCode();
+                    throw ErrMsg.GetErr(code);
+                }
             }
-            catch
-            {
-                int code = System.Runtime.InteropServices.Marshal.GetExceptionCode();
-                throw ErrMsg.GetErr(code);
-            }            
         }
         // POST api/<controller>
         public void Post([FromBody] string value)

@@ -42,8 +42,8 @@ namespace SagamApi4.Services
         }
         public List<ProductModel> GetProductsByDescription(string text,int tarifaId)
         {
-            const string command = @"select top 200 codart,desart,prelta from f_art a 
-                                    left join f_lta l on l.artlta=a.codart where a.desart like @text and tarlta=@tarifaId";
+            const string command = @"select top 250 codart,desart,prelta from f_art a 
+                                    left join f_lta l on l.artlta=a.codart where a.desart like @text and tarlta=@tarifaId order by desart";
             parameters = new List<System.Data.SqlClient.SqlParameter>();
             parameters.Add(new System.Data.SqlClient.SqlParameter("@tarifaId", tarifaId));
             var castTxt = "%" + text.Replace(" ", "%").Trim()+"%";
