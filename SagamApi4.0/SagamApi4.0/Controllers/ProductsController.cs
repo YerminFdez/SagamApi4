@@ -24,7 +24,7 @@ namespace SagamApi4.Controllers
             {
                 try
                 {
-                    string[] cmd = { "c", "b", "d" };
+                    string[] cmd = { "c", "b", "d","f" };
                     List<ProductModel> data = new List<ProductModel>();
                     string p1, p2;
                     int indxP1 = q.IndexOf(":");
@@ -40,6 +40,8 @@ namespace SagamApi4.Controllers
                         data = prodSrv.GetProductByBarcode(p1, Convert.ToInt32(p2));
                     else if (q.StartsWith(cmd[2]))//d = descripcion del producto
                         data = prodSrv.GetProductsByDescription(p1, Convert.ToInt32(p2));
+                    else if (q.StartsWith(cmd[3]))//f = familia del producto
+                        data = prodSrv.GetProductsByFamily(Convert.ToInt32(p1), Convert.ToInt32(p2));
 
                     return data;
                 }
