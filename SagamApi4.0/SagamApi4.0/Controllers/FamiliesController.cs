@@ -1,4 +1,5 @@
-﻿using SagamApi4.Models;
+﻿using Data;
+using SagamApi4.Models;
 using SagamApi4.Services;
 using System;
 using System.Collections.Generic;
@@ -10,18 +11,39 @@ using System.Web.Http;
 namespace SagamApi4.Controllers
 {
     public class FamiliesController : ApiController
-    {        
+    {
+
+        DbContext context;
+        public FamiliesController()
+        {
+            context = ConnectionHelper.GetContext();
+        }
 
         // GET api/<controller>
-        public IEnumerable<FamilyModel> Get()
+        public IEnumerable<FamilyModel> Get(string q)
         {
-            using (var context = ConnectionHelper.GetContext())
+            try
             {
-                var famSrv = new FamilyService(context);
-                var families = famSrv.GetAll(); 
-                return families;
+                using (context)
+                {
+                    var famSrv = new FamilyService(context);
+                    List<FamilyModel> data = new List<FamilyModel>();
+                    if (string.IsNullOrWhiteSpace(q))
+                        data = famSrv.GetAll();
+                    else if (q.StartsWith("s:"))
+                    {
+                        data = famSrv.GetFamiliesBySection(q.Substring(2));
+                    }
+
+                    return data;
+                }
             }
-           
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         // GET api/<controller>/5

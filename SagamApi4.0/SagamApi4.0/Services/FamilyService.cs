@@ -19,10 +19,17 @@ namespace SagamApi4.Services
         }
         public FamilyModel GetFamily(int id)
         {
-            const string command = "select * from f_cat where codfam=@id";
+            const string command = "select * from f_cat where codcat=@id";
             parameters = new List<System.Data.SqlClient.SqlParameter>();
             parameters.Add(new System.Data.SqlClient.SqlParameter("@id", id));
             return GetData(ExecuteReader(command), FamilyModel.Create).FirstOrDefault();
+        }
+        public List<FamilyModel> GetFamiliesBySection(string section)
+        {
+            const string command = "select * from f_cat where seccat=@section";
+            parameters = new List<System.Data.SqlClient.SqlParameter>();
+            parameters.Add(new System.Data.SqlClient.SqlParameter("@section", section));
+            return GetData(ExecuteReader(command), FamilyModel.Create).ToList();
         }
     }
 }
